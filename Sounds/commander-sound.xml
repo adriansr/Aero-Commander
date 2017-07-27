@@ -50,7 +50,7 @@
       <path>Aircraft/Aero-Commander/Sounds/running.wav</path>
       <property>/engines/engine[0]/running</property>
       <volume>
-        <property>/engines/engine[0]/mp-osi</property>
+        <property>/engines/engine[0]/mp-osi-corrected</property>
         <factor>0.00375</factor>
         <min>0.15</min>
         <max>0.5</max>
@@ -93,7 +93,7 @@
         <factor>0.5</factor>
       </volume>
       <pitch>
-        <property>/engines/engine[0]/mp-osi</property>
+        <property>/engines/engine[0]/mp-osi-corrected</property>
         <factor>0.0036</factor>
         <min>0.5</min>
         <max>2.0</max>
@@ -149,7 +149,7 @@
       <path>Aircraft/Aero-Commander/Sounds/running.wav</path>
       <property>/engines/engine[1]/running</property>
       <volume>
-        <property>/engines/engine[1]/mp-osi</property>
+        <property>/engines/engine[1]/mp-osi-corrected</property>
         <factor>0.00375</factor>
         <min>0.15</min>
         <max>0.5</max>
@@ -192,7 +192,7 @@
         <factor>0.5</factor>
       </volume>
       <pitch>
-        <property>/engines/engine[0]/mp-osi</property>
+        <property>/engines/engine[0]/mp-osi-corrected</property>
         <factor>0.0036</factor>
         <min>0.5</min>
         <max>2.0</max>

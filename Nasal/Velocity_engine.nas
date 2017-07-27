@@ -53,7 +53,7 @@
 var ENGINE_DATA		= "/sim/Velocity/engine/";		# Base location for engine data
 var UPDATE_INTERVAL	= 0.2;					# Seconds. Set interval at largest value that gives reasonable
 								# smooth instrument responses. Avoid using framerate (0 secs).
-
+var IDEAL_AFR = 1 / 14.7;
 ##############
 # Interpolation tables used:
 ##############
@@ -177,6 +177,9 @@ var fix_MP = func (eprop) {
   var MPminNew = inHg * MP_factor;					# MP_factor was 0.33, now derived from engine XML settings
   var MP = ((MPold - MPminOld) / (inHg - MPminOld)) * (inHg - MPminNew) + (MPminNew);
   setprop(eprop~"mp-inhg-adj",MP);
+  var eff = getprop(eprop~"afr_eff");
+  if (eff == 0 or eff == nil) eff = 1;
+  setprop(eprop~"mp-osi-corrected",MPold / eff);
   return MP;
 }
 
@@ -198,8 +201,8 @@ var engine_update = func (i) {						# i = engine number
     mixture = interpolation_tables(mixture,table_mix_ind,table_mix_opt);
     setprop(eprop~"mix-adj",mixture);
 
+    var throttle_lever = getprop(ecprop~"throttle");
 									# Get the basics and calculate air mass:
-    var throttle = getprop(ecprop~"throttle");
     var tempC = getprop("/environment/temperature-degc");
     var RPM = getprop(eprop~"rpm");
     var MP = fix_MP(eprop);						# Revise MP range
@@ -232,13 +235,18 @@ var engine_update = func (i) {						# i = engine number
       afr = afr * density_sl / density;					# AFR rises proportional to reduction in air density (mixture richens with altitude)
     }
     afr = afr * mixture;						# Mixture control reduces the size of the metered fuel jet
-    if (use_AE and (throttle > AE_throttle_min)) {			# Auto-enrich option for higher power settings:
+    if (use_AE and (throttle_lever > AE_throttle_min)) {			# Auto-enrich option for higher power settings:
 									# Kicks in at some minimum throttle position (ex: 0.65) (configured in XML)
 									# Gain to AFR is linearly interpolated up to max throttle. This fuel jet is in
 									# parallel with the main metered jet, so it is not affected by mixture control.
-      afr = afr + AE_gain * (throttle - AE_throttle_min)/(1 - AE_throttle_min);
+      afr = afr + AE_gain * (throttle_lever - AE_throttle_min)/(1 - AE_throttle_min);
     }
     setprop(eprop~"afr",afr);
+    var eff = afr>IDEAL_AFR? IDEAL_AFR / afr : afr / IDEAL_AFR;
+    eff = 0.85 + 0.15 * eff;
+    setprop(eprop~"afr_eff", eff);
+    var throttle = throttle_lever * eff;
+    setprop(ecprop~"throttle-fdm", throttle);
 
 									# Calculate fuel flow:
     var ff_kgs = mass * afr;						# Unadjusted fuel flow; this works OK as-is, coming in pretty close to real values,
@@ -252,10 +260,6 @@ var engine_update = func (i) {						# i = engine number
     var consumed = 2.2046 * ff_kgs * dT;
     setprop(eprop~"fuel-consumed-lbs-adj",getprop(eprop~"fuel-consumed-lbs-adj") + consumed);
     
-
-    var hp_percent = HP/HP_max;						# hp_percent is used only for instrument display, comment out
-    if (hp_percent > 0.99) { hp_percent = 0.99; }			# these three lines if not needed
-    setprop(eprop~"hp",hp_percent);
 
 									# EGT and CHT values:
 

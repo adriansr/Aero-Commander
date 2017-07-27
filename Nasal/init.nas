@@ -9,6 +9,10 @@ setlistener("/sim/signals/fdm-initialized", func {
   setprop("/engines/engine[1]/fuel-consumed-lbs-adj", 0);
   setprop("/engines/engine[0]/chttempf", 0);
   setprop("/engines/engine[1]/chttempf", 0);
+  setprop("/controls/engines/engine[0]/throttle", 0);
+  setprop("/controls/engines/engine[1]/throttle", 0);
+  setprop("/controls/engines/engine[0]/throttle-fdm", 0);
+  setprop("/controls/engines/engine[1]/throttle-fdm", 0);
   #FuelInit();
   EngineInit();                                                 # See Velocity-engines.nas
   #Velocity_Savedata();
