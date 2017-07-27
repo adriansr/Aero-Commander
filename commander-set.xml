@@ -15,6 +15,12 @@
       <model type="int">   4 </model>
     </rating>
 
+	<systems n="0">
+		<autopilot n="0">
+			<path>/Aircraft/Aero-Commander/Systems/jd-autoflight.xml</path>
+		</autopilot>
+	</systems>
+
   </sim>
 
 </PropertyList>
