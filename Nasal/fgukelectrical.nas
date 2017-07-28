@@ -80,7 +80,9 @@ init_electrical = func {
     props.globals.getNode("/controls/switches/avionic-master", 1).setBoolValue(0);
     props.globals.getNode("/controls/electric/engine/generator", 1).setBoolValue(0);
     props.globals.getNode("/controls/switches/landing-light", 1).setBoolValue(0);
+    props.globals.getNode("/controls/switches/landing-lights-switch", 1).setBoolValue(0);
     props.globals.getNode("/controls/switches/nav-lights", 1).setBoolValue(0);
+    props.globals.getNode("/controls/switches/nav-lights-switch", 1).setBoolValue(0);
     props.globals.getNode("/controls/switches/pitot-heat", 1).setBoolValue(0);
     props.globals.getNode("/controls/switches/strobes", 1).setIntValue(0);
     props.globals.getNode("/controls/anti-ice/engine/carb-heat", 1).setBoolValue(0);
