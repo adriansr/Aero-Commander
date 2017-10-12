@@ -21,7 +21,19 @@
 		</autopilot>
 	</systems>
 
-  </sim>
+        <weight n="0">
+            <name>Crew</name>
+            <weight-lb>180</weight-lb>
+            <max-lb>400</max-lb>
+            <min-lb>180</min-lb>
+        </weight>
 
+        <weight n="1">
+            <name>Pax/Baggage</name>
+            <weight-lb>0</weight-lb>
+            <max-lb>1945</max-lb>
+            <min-lb>0</min-lb>
+        </weight>
+  </sim>
 </PropertyList>
 

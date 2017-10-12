@@ -221,4 +221,6 @@
   <!-- Mass displacment -->
   <ballast x="5.35378" y="0" z="-2" mass="1000"/>
 
+ <weight x="4.0" y="0" z="-0.5" mass-prop="/sim/weight[0]/weight-lb"/>
+ <weight x="0.67" y="0" z="-0.5" mass-prop="/sim/weight[1]/weight-lb"/>
 </airplane>
