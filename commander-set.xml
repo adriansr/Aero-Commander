@@ -35,5 +35,10 @@
             <min-lb>0</min-lb>
         </weight>
   </sim>
+  <limits>
+    <mass-and-balance>
+      <maximum-takeoff-mass-lbs type="double">6750</maximum-takeoff-mass-lbs>
+    </mass-and-balance>
+  </limits>
 </PropertyList>
 
